@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendario Gimnasio</title>
+    <link rel="stylesheet" href="/calendariogymcss" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+  </head>
+  <body>
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <h1>Calendario</h1>
+        <h2 id="mes"></h2>
+        <h3 id="anno"></h3>
+      </div>
+      <div class="wrap">
+        <div>
+          <hr />
+
+          <table id="tablacalendario">
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>11</td>
+              <td>12</td>
+              <td>13</td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>16</td>
+              <td>17</td>
+              <td>18</td>
+              <td>19</td>
+              <td>20</td>
+              <td>21</td>
+            </tr>
+            <tr>
+              <td>22</td>
+              <td>23</td>
+              <td>24</td>
+              <td>25</td>
+              <td>26</td>
+              <td>27</td>
+              <td>28</td>
+            </tr>
+            <tr>
+              <td>29</td>
+              <td>30</td>
+              <td>31</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="/frontend"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript">
+    var currentTime = new Date();
+    let month = currentTime.getMonth();
+    let year = currentTime.getFullYear();
+    let monthShow = "";
+
+    if (month == 0) {
+      monthShow = "Enero";
+    } else if (month == 1) {
+      monthShow = "Febrero";
+    } else if (month == 2) {
+      monthShow = "Marzo";
+    } else if (month == 3) {
+      monthShow = "Abril";
+    } else if (month == 4) {
+      monthShow = "Mayo";
+    } else if (month == 5) {
+      monthShow = "Junio";
+    } else if (month == 6) {
+      monthShow = "Julio";
+    } else if (month == 7) {
+      monthShow = "Agosto";
+    } else if (month == 8) {
+      monthShow = "Septiembre";
+    } else if (month == 9) {
+      monthShow = "Octubre";
+    } else if (month == 10) {
+      monthShow = "Noviembre";
+    } else if (month == 11) {
+      monthShow = "Diciembre";
+    } else {
+      monthShow = "Error";
+    }
+    document.getElementById("mes").innerHTML = monthShow;
+    document.getElementById("anno").innerHTML = year;
+
+    var eventosinstanciados = new Gimnasio();
+    eventosinstanciados.MES = month + 1;
+    eventosinstanciados.ANNO = year;
+    eventosinstanciados.Seleccionarpormesanno().then(
+      function (response) {
+        console.log("Success!", response);
+        localStorage.setItem("eventosdelperiodo", JSON.stringify(response));
+
+        for (var elemento in response) {
+          var fecharecuperada = new Date(response[elemento].FECHA);
+          var diaevento = fecharecuperada.getDate() + 1;
+          var table = document.getElementById("tablacalendario");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+
+            for (j = 0; j < td.length; j++) {
+              var casillaactualnumero = td[j].innerHTML.trim();
+              if (casillaactualnumero == diaevento) {
+                td[j].innerHTML +=
+                  "<br>" +
+                  response[elemento].NOMBRE +
+                  "<br><br> Asistentes: <br>"
+                  for(var i in response[elemento].ASISTENTES){
+                  td[j].innerHTML += '<div class="asistentes"> <p container-asistentes>'+ response[elemento].ASISTENTES[i]} td[j].innerHTML +=
+                  '<img src="' +
+                  response[elemento].IMAGEN +
+                  '" style="HEIGHT: 70px;"' +
+                  ">" +
+                  "<br>" +
+                  '<input type="button" value="Añadir Asistentes" onclick="popAddAsistentes(\'' +
+                  response[elemento]._id +
+                  "')\"/>";
+                break;
+              }
+            }
+          }
+        }
+      },
+      function (error) {
+        console.log("Failed!", error);
+        alert("Error" + error);
+      }
+    );
+
+    function popAddAsistentes(id) {
+      Swal.fire({
+        title: "Añadir asistentes",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Añadir",
+        showLoaderOnConfirm: true,
+        preConfirm: (asistentes) => {
+          var eventosinstanciados = new Gimnasio();
+          eventosinstanciados.ASISTENTES = asistentes;
+          eventosinstanciados._id = id;
+          eventosinstanciados.addAsistentes().then(
+            function (response) {
+              for (var elemento in response) {
+                var fecharecuperada = new Date(response[elemento].FECHA);
+                var diaevento = fecharecuperada.getDate() + 1;
+                var table = document.getElementById("tablacalendario");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName("td");
+
+                  for (j = 0; j < td.length; j++) {
+                    var casillaactualnumero = td[j].innerHTML.trim();
+                    if (casillaactualnumero == diaevento) {
+                      td[j].innerHTML +=
+                        "<br>" +
+                        response[elemento].NOMBRE +
+                        "<br><br> Asistentes: <br>" +
+                        response[elemento].ASISTENTES +
+                        "</br>" +
+                        '<img src="' +
+                        response[elemento].IMAGEN +
+                        '" style="HEIGHT: 70px;"' +
+                        ">" +
+                        "<br>" +
+                        '<input type="button" value="Añadir Asistentes" onclick="popAddAsistentes(\'' +
+                        response[elemento]._id +
+                        "')\"/>";
+                      break;
+                    }
+                  }
+                }
+              }
+              console.log("Success!", response);
+              Swal.fire({
+                title: "Asistentes añadidos",
+                text: "Se han añadido los asistentes correctamente",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+              });
+            },
+            function (error) {
+              console.log("Failed!", error);
+              Swal.fire({
+                title: "Error",
+                text: "Ha ocurrido un error al añadir los asistentes",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+              });
+            }
+          );
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+    }
+  </script>
+</html>

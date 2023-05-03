@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" href="/gimnasiocss" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <title>Formularios</title>
+  </head>
+  <body>
+    <div class="contenedor-formulario">
+      <div class="wrap">
+        <div class="title">
+          <h1>Eventos del Gimnasio</h1>
+          <p>Ingresa los datos</p>
+        </div>
+        <form class="formulario" name="formulario_registro">
+          <div>
+            <div class="input-group">
+              <input
+                class="input-float"
+                type="text"
+                id="NOMBRE"
+                name="NOMBRE"
+                placeholder="Nombre:"
+              />
+            </div>
+            <div class="input-group">
+              <input
+                class="input-float"
+                type="text"
+                id="DESCRIPCION"
+                name="DESCRIPCION"
+                placeholder="Descripción:"
+              />
+            </div>
+            <div class="input-group">
+              <input
+                class="input-float"
+                type="text"
+                id="TIPOEVENTO"
+                name="TIPOEVENTO"
+                placeholder="Tipo de evento:"
+              />
+            </div>
+            <div class="input-group">
+              <div class="input-group-meeting">
+                <div class="input-group-date">
+                  <input type="date" id="FECHA" name="FECHA" />
+                  <label class="label">Fecha:</label>
+                </div>
+                <div class="input-group-time">
+                  <input type="time" id="HORA" name="HORA" />
+                  <label class="label">Hora:</label>
+                </div>
+              </div>
+            </div>
+            <div class="input-group">
+              <input
+                class="input-float"
+                type="number"
+                id="DURACION"
+                name="DURACION"
+                placeholder="Duración en lecciones:"
+              />
+            </div>
+
+            <div class="input-group">
+              <input
+                class="input-float"
+                type="text"
+                id="ASISTENTES"
+                name="ASISTENTES"
+                placeholder="Nombre del asistente:"
+              />
+            </div>
+
+            <div class="input-group input-group-img">
+              <input type="file" id="IMAGEN" name="IMAGEN" />
+              <label class="label-img">Subir imagen: </label>
+            </div>
+            <input
+              type="button"
+              class="btn-submit"
+              id="btn-submit"
+              value="Enviar"
+              onclick="step1()"
+            />
+          </div>
+        </form>
+        <div class="link">
+            <a href="/calendariogym">Visitar calendario de eventos</a>
+          </div>
+      </div>
+    </div>
+    <table id="table" class="table-fill hidden">
+      <thead>
+        <tr>
+          <th class="text-left">Nombre del evento</th>
+          <th class="text-left">Descripción</th>
+          <th class="text-left">Tipo de evento</th>
+          <th class="text-left">Fecha</th>
+          <th class="text-left">Hora</th>
+          <th class="text-left">Duración en lecciones</th>
+          <th class="text-left">Imagen</th>
+        </tr>
+      </thead>
+      <tbody class="table-hover" id="cuerpoDeLaTabla"></tbody>
+      <tfoot>
+        <td><input id="nombremodificar" value="" type="text" /></td>
+        <td><input id="descripcionmodificar" value="" type="text" /></td>
+        <td><input id="tipoeventomodificar" value="" type="text" /></td>
+        <td><input id="fechamodificar" value="" type="date" /></td>
+        <td><input id="horamodificar" value="" type="time" /></td>
+        <td><input id="duracionmodificar" value="" type="number" /></td>
+        
+        
+        <td>
+          <input
+            onclick="modificarenelbackend()"
+            value="Modificar"
+            type="button"
+          />
+        </td>
+        <td><input class="hidden" id="idmodificar" value="" type="text" /></td>
+      </tfoot>
+    </table>
+   
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="/frontend"></script>
+  <script type="text/javascript">
+    let table = new DataTable('#table')
+    var eventosinstanciados = new Gimnasio(); // => Instanciamos la clase Gimnasio.
+    let imagenenbase64 = ""; // => Declaramos la variable en string vacío que es formato en el que obtendremos la imagen.
+    $("#IMAGEN").change(function () {
+      readURL(this);
+    });
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          imagenenbase64 = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function step1() {
+      var table = document.getElementById("table");
+      table.classList.remove("hidden");
+      Guardar();
+    }
+
+    // Creamos una función para guardar los datos en nuestra base de datos.
+    function Guardar() {
+      // Creamos una instancia de la clase Gimnasio.
+      eventosinstanciados.NOMBRE = document.getElementById("NOMBRE").value;
+      eventosinstanciados.DESCRIPCION =
+        document.getElementById("DESCRIPCION").value;
+      eventosinstanciados.TIPOEVENTO =
+        document.getElementById("TIPOEVENTO").value;
+      eventosinstanciados.FECHA = document.getElementById("FECHA").value;
+      eventosinstanciados.HORAINICIO = document.getElementById("HORA").value;
+      eventosinstanciados.DURACION = document.getElementById("DURACION").value;
+      eventosinstanciados.ASISTENTES =
+        document.getElementById("ASISTENTES").value;
+      eventosinstanciados.IMAGEN = imagenenbase64;
+
+      // Llamamos al método Guardar() de la clase Gimnasio, para enviar lo que añadimos en los inputs a la base de datos.
+      eventosinstanciados.Guardar().then(
+        function (response) {
+          localStorage.setItem("listaeventos", JSON.stringify(response));
+          console.log("Success!", response);
+          alert("Guardado con éxito");
+          for (var elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].NOMBRE +
+              "</td>" +
+              "<td>" +
+              response[elemento].DESCRIPCION +
+              "</td>" +
+              "<td>" +
+              response[elemento].TIPOEVENTO +
+              "</td>" +
+              "<td>" +
+              response[elemento].FECHA +
+              "</td>" +
+              "<td>" +
+              response[elemento].HORAINICIO +
+              "</td>" +
+              "<td>" +
+              response[elemento].DURACION +
+              "</td>" +
+              '<td><img src="' +
+              response[elemento].IMAGEN +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          console.error("Failed!", error);
+          alert("Error al guardar" + error);
+        }
+      );
+    }
+
+    function eliminarenbd(idEvento) {
+      eventosinstanciados._id = idEvento;
+      eventosinstanciados.Eliminar(idEvento).then(
+        function (response) {
+          alert("Eliminado de la base de datos");
+          document.getElementById("cuerpoDeLaTabla").innerHTML = "";
+          for (var elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].NOMBRE +
+              "</td>" +
+              "<td>" +
+              response[elemento].DESCRIPCION +
+              "</td>" +
+              "<td>" +
+              response[elemento].TIPOEVENTO +
+              "</td>" +
+              "<td>" +
+              response[elemento].FECHA +
+              "</td>" +
+              "<td>" +
+              response[elemento].HORAINICIO +
+              "</td>" +
+              "<td>" +
+              response[elemento].DURACION +
+              "</td>" +
+              '<td><img src="' +
+              response[elemento].IMAGEN +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          alert(error);
+        }
+      );
+    }
+
+    function modificarenbd(idEvento) {
+      for (var elemento in JSON.parse(localStorage.getItem("listaeventos"))) {
+        if (
+          JSON.parse(localStorage.getItem("listaeventos"))[elemento]._id ==
+          idEvento
+        ) {
+          document.getElementById("nombremodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].NOMBRE;
+          document.getElementById("descripcionmodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].DESCRIPCION;
+          document.getElementById("tipoeventomodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].TIPOEVENTO;
+          document.getElementById("fechamodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].FECHA;
+          document.getElementById("horamodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].HORAINICIO;
+          document.getElementById("duracionmodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento].DURACION;
+          document.getElementById("idmodificar").value = JSON.parse(
+            localStorage.getItem("listaeventos")
+          )[elemento]._id;
+
+          break;
+        }
+      }
+    }
+
+    function modificarenelbackend() {
+      eventosinstanciados.NOMBRE =
+        document.getElementById("nombremodificar").value;
+      eventosinstanciados.DESCRIPCION = document.getElementById(
+        "descripcionmodificar"
+      ).value;
+      eventosinstanciados.TIPOEVENTO = document.getElementById(
+        "tipoeventomodificar"
+      ).value;
+      eventosinstanciados.FECHA =
+        document.getElementById("fechamodificar").value;
+      eventosinstanciados.HORAINICIO =
+        document.getElementById("horamodificar").value;
+      eventosinstanciados.DURACION =
+        document.getElementById("duracionmodificar").value;
+      eventosinstanciados._id = document.getElementById("idmodificar").value;
+
+      eventosinstanciados.Modificar().then(
+        function (response) {
+          alert("Modificado en la base de datos");
+          document.getElementById("cuerpoDeLaTabla").innerHTML = "";
+          for (elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].NOMBRE +
+              "</td>" +
+              "<td>" +
+              response[elemento].DESCRIPCION +
+              "</td>" +
+              "<td>" +
+              response[elemento].TIPOEVENTO +
+              "</td>" +
+              "<td>" +
+              response[elemento].FECHA +
+              "</td>" +
+              "<td>" +
+              response[elemento].HORAINICIO +
+              "</td>" +
+              "<td>" +
+              response[elemento].DURACION +
+              "</td>" +
+              '<td><img src="' +
+              response[elemento].IMAGEN +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          alert(error);
+        }
+      );
+    }
+  </script>
+</html>

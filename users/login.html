@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" href="/userscss" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="contenedor-formulario">
+      <div class="wrap">
+        <div class="title">
+          <h1>Log In</h1>
+          <p>Ingresa tus datos</p>
+        </div>
+        <form class="formulario" name="formulario_registro">
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email:"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Contraseña:"
+            />
+          </div>
+          <input
+            type="button"
+            class="btn-submit"
+            id="btn-submit"
+            value="Ingresar"
+            onclick="Ingresar()"
+          />
+        </form>
+        <div class="link">
+            <a href="/usershtml">Crear cuenta</a>
+          </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="/usersfrontjs"></script>
+  <script>
+      function Ingresar(){
+        var personaInstanciada = new Persona(
+            '','','',
+            document.getElementById('email').value,
+            '',
+            document.getElementById('password').value
+        );
+
+        personaInstanciada.Login().then(function(response){
+          if(response != "error"){
+                    alert("Ingreso exitoso");
+                    location.href='/gimnasio?email='+response[0].email+'&password='+response[0].password;
+                }
+                else{
+                    alert('Algun dato es erroneo, verifique los datos ingresados.');
+                }
+            }, function(error){
+                console.error("!Failed",error);
+                alert("Error"+error);
+            })
+    }
+  </script>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" href="/userscss" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <title>Formularios</title>
+  </head>
+  <body>
+    <div class="contenedor-formulario">
+      <div class="wrap">
+        <div class="title">
+          <h1>Crea tu usuario</h1>
+          <p>Ingresa los datos</p>
+        </div>
+        <form class="formulario" name="formulario_registro">
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="Nombre:"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="text"
+              id="apellido"
+              name="apellido"
+              placeholder="Apellido:"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email:"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="text"
+              id="tipoUsuario"
+              name="tipoUsuario"
+              placeholder="Tipo de Usuario:"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              class="input-float"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Contraseña:"
+            />
+          </div>
+          <div class="input-group input-group-img">
+            <input type="file" id="foto" name="foto" />
+            <label class="label-img">Subir imagen: </label>
+          </div>
+          <input
+            type="button"
+            class="btn-submit"
+            id="btn-submit"
+            value="Enviar"
+            onclick="step1()"
+          />
+        </form>
+        <div class="link">
+          <a href="/login">Iniciar Sesión</a>
+        </div>
+      </div>
+    </div>
+    <table id="table" class="table-fill hidden">
+      <thead>
+        <tr>
+          <th class="text-left">Nombre</th>
+          <th class="text-left">Apellido</th>
+          <th class="text-left">Email</th>
+          <th class="text-left">Tipo de usuario</th>
+          <th class="text-left">Password</th>
+          <th class="text-left">Imagen</th>
+        </tr>
+      </thead>
+      <tbody class="table-hover" id="cuerpoDeLaTabla"></tbody>
+      <tfoot>
+        <td><input id="nombremodificar" value="" type="text" /></td>
+        <td><input id="apellidomodificar" value="" type="text" /></td>
+        <td><input id="emailmodificar" value="" type="text" /></td>
+        <td><input id="tipousuariomodificar" value="" type="text" /></td>
+        <td><input id="passwordmodificar" value="" type="password" /></td>
+
+        <td>
+          <input
+            onclick="modificarenelbackend()"
+            value="Modificar"
+            type="button"
+          />
+        </td>
+        <td><input class="hidden" id="idmodificar" value="" type="text" /></td>
+      </tfoot>
+    </table>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="/usersfrontjs"></script>
+  <script type="text/javascript">
+    var personasinstanciadas = new Persona(); // => Instanciamos la clase Persona.
+    let imagenenbase64 = ""; // => Declaramos la variable en string vacío que es formato en el que obtendremos la imagen.
+    $("#foto").change(function () {
+      readURL(this);
+    });
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          imagenenbase64 = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function step1() {
+      var table = document.getElementById("table");
+      table.classList.remove("hidden");
+      Guardar();
+    }
+
+    // Creamos una función para guardar los datos en nuestra base de datos.
+    function Guardar() {
+      // Creamos una instancia de la clase Gimnasio.
+      personasinstanciadas.nombre = document.getElementById("nombre").value;
+      personasinstanciadas.apellido = document.getElementById("apellido").value;
+      personasinstanciadas.email = document.getElementById("email").value;
+      personasinstanciadas.tipousuario =
+        document.getElementById("tipoUsuario").value;
+      personasinstanciadas.password = document.getElementById("password").value;
+      personasinstanciadas.foto = imagenenbase64;
+
+      // Llamamos al método Guardar() de la clase Gimnasio, para enviar lo que añadimos en los inputs a la base de datos.
+      personasinstanciadas.Guardar().then(
+        function (response) {
+          localStorage.setItem("listapersonas", JSON.stringify(response));
+          console.log("Success!", response);
+          alert("Guardado con éxito");
+          for (var elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].nombre +
+              "</td>" +
+              "<td>" +
+              response[elemento].apellido +
+              "</td>" +
+              "<td>" +
+              response[elemento].email +
+              "</td>" +
+              "<td>" +
+              response[elemento].tipousuario +
+              "</td>" +
+              "<td>" +
+              response[elemento].password +
+              "</td>" +
+              '<td><img src="' +
+              response[elemento].foto +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          console.error("Failed!", error);
+          alert("Error al guardar" + error);
+        }
+      );
+    }
+
+    function eliminarenbd(idEvento) {
+      personasinstanciadas._id = idEvento;
+      personasinstanciadas.Eliminar(idEvento).then(
+        function (response) {
+          alert("Eliminado de la base de datos");
+          document.getElementById("cuerpoDeLaTabla").innerHTML = "";
+          for (var elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].nombre +
+              "</td>" +
+              "<td>" +
+              response[elemento].apellido +
+              "</td>" +
+              "<td>" +
+              response[elemento].email +
+              "</td>" +
+              "<td>" +
+              response[elemento].tipousuario +
+              "</td>" +
+              "<td>" +
+              response[elemento].password +
+              '<td><img src="' +
+              response[elemento].foto +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          alert(error);
+        }
+      );
+    }
+
+    function modificarenbd(idEvento) {
+      for (var elemento in JSON.parse(localStorage.getItem("listapersonas"))) {
+        if (
+          JSON.parse(localStorage.getItem("listapersonas"))[elemento]._id ==
+          idEvento
+        ) {
+          document.getElementById("nombremodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento].nombre;
+          document.getElementById("apellidomodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento].apellido;
+          document.getElementById("emailmodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento].email;
+          document.getElementById("tipousuariomodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento].tipousuario;
+          document.getElementById("passwordmodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento].password;
+          document.getElementById("idmodificar").value = JSON.parse(
+            localStorage.getItem("listapersonas")
+          )[elemento]._id;
+
+          break;
+        }
+      }
+    }
+
+    function modificarenelbackend() {
+      personasinstanciadas.nombre =
+        document.getElementById("nombremodificar").value;
+      personasinstanciadas.apellido =
+        document.getElementById("apellidomodificar").value;
+      personasinstanciadas.email =
+        document.getElementById("emailmodificar").value;
+      personasinstanciadas.tipousuario = document.getElementById(
+        "tipousuariomodificar"
+      ).value;
+      personasinstanciadas.password =
+        document.getElementById("passwordmodificar").value;
+
+      personasinstanciadas.Modificar().then(
+        function (response) {
+          alert("Modificado en la base de datos");
+          document.getElementById("cuerpoDeLaTabla").innerHTML = "";
+          for (elemento in response) {
+            document.getElementById("cuerpoDeLaTabla").innerHTML +=
+              "<tr><td>" +
+              response[elemento].nombre +
+              "</td>" +
+              "<td>" +
+              response[elemento].apellido +
+              "</td>" +
+              "<td>" +
+              response[elemento].email +
+              "</td>" +
+              "<td>" +
+              response[elemento].tipousuario +
+              "</td>" +
+              "<td>" +
+              response[elemento].password +
+              "</td>" +
+              '<td><img src="' +
+              response[elemento].foto +
+              '"style="height:50px"/></td>' +
+              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
+              response[elemento]._id +
+              "')\"/></td>" +
+              "</tr>";
+          }
+        },
+        function (error) {
+          alert(error);
+        }
+      );
+    }
+  </script>
+</html>
