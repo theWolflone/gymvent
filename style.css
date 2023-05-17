@@ -9,7 +9,29 @@
 body {
   background: #f2f2f2;
   font-family: "Roboto";
-  border-top: 30px solid #303f9f;
+}
+
+.menu{
+  padding: 12px;
+  background-color: #303f9f;
+}
+
+.menu li{
+  list-style: none;
+  display: inline-block;
+  margin-left: 16rem;
+
+}
+
+.menu li a{
+  text-decoration: none;
+  color: #f2f2f2;
+  font-weight: bold;
+}
+
+.title img{
+  width: 100%;
+  height: 100%;
 }
 
 .wrap {

@@ -7,7 +7,6 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <link rel="stylesheet" href="/gimnasiocss" />
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link
       href="https://fonts.googleapis.com/css?family=Roboto"
       rel="stylesheet"
@@ -20,10 +19,16 @@
     <title>Formularios</title>
   </head>
   <body>
+    <nav class="menu">
+      <li><a href="/gimnasio">Crear evento</a></li>
+      <li><a href="/tabla">Tabla</a></li>
+      <li><a href="/calendariogym">Calendario</a></li>
+    </nav>
     <div class="contenedor-formulario">
       <div class="wrap">
         <div class="title">
           <h1>Eventos del Gimnasio</h1>
+          <img src="/logo" alt="">
           <p>Ingresa los datos</p>
         </div>
         <form class="formulario" name="formulario_registro">
@@ -101,8 +106,8 @@
           </div>
         </form>
         <div class="link">
-            <a href="/calendariogym">Visitar calendario de eventos</a>
-          </div>
+          <a href="/calendariogym">Visitar calendario de eventos</a>
+        </div>
       </div>
     </div>
     <table id="table" class="table-fill hidden">
@@ -125,8 +130,7 @@
         <td><input id="fechamodificar" value="" type="date" /></td>
         <td><input id="horamodificar" value="" type="time" /></td>
         <td><input id="duracionmodificar" value="" type="number" /></td>
-        
-        
+
         <td>
           <input
             onclick="modificarenelbackend()"
@@ -137,13 +141,10 @@
         <td><input class="hidden" id="idmodificar" value="" type="text" /></td>
       </tfoot>
     </table>
-   
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="/frontend"></script>
   <script type="text/javascript">
-    let table = new DataTable('#table')
     var eventosinstanciados = new Gimnasio(); // => Instanciamos la clase Gimnasio.
     let imagenenbase64 = ""; // => Declaramos la variable en string vacío que es formato en el que obtendremos la imagen.
     $("#IMAGEN").change(function () {

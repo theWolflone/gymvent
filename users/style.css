@@ -12,6 +12,10 @@ body {
   border-top: 30px solid #303f9f;
 }
 
+.menu{
+  background-color: #303f9f;
+}
+
 .wrap {
   width: 90%;
   max-width: 500px;

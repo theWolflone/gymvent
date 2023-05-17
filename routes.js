@@ -50,6 +50,7 @@ module.exports = function (app) {
   app.get("/login", function (req, res) {
     res.sendfile("users/login.html");
   });
+  
 
 
   app.put("/api/nuevoevento", controllerGym.Guardar);
