@@ -22,6 +22,9 @@ module.exports = function (app) {
     });
 
 
+  app.get("/gymventlogo", function (req, res) {
+    res.sendfile("assets/GymventWhite.png")
+  })
   
   app.get("/gimnasio", function (req, res) {
     res.sendfile("index.html");

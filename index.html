@@ -20,6 +20,7 @@
   </head>
   <body>
     <nav class="menu">
+      <img class="logo" src="/gymventlogo" alt="" />
       <li><a href="/gimnasio">Crear evento</a></li>
       <li><a href="/tabla">Tabla</a></li>
       <li><a href="/calendariogym">Calendario</a></li>
@@ -28,36 +29,35 @@
       <div class="wrap">
         <div class="title">
           <h1>Eventos del Gimnasio</h1>
-          <img src="/logo" alt="">
           <p>Ingresa los datos</p>
         </div>
         <form class="formulario" name="formulario_registro">
           <div>
-            <div class="input-group">
-              <input
-                class="input-float"
-                type="text"
-                id="NOMBRE"
-                name="NOMBRE"
-                placeholder="Nombre:"
-              />
+            <div class="firstLine">
+              <div class="input-group">
+                <input
+                  class="input-float"
+                  type="text"
+                  id="NOMBRE"
+                  name="NOMBRE"
+                  placeholder="Nombre:"
+                />
+                <input
+                  class="input-float spaceInput"
+                  type="text"
+                  id="TIPOEVENTO"
+                  name="TIPOEVENTO"
+                  placeholder="Tipo de evento:"
+                />
+              </div>
             </div>
             <div class="input-group">
               <input
-                class="input-float"
+                class="input-float descripcion"
                 type="text"
                 id="DESCRIPCION"
                 name="DESCRIPCION"
                 placeholder="Descripción:"
-              />
-            </div>
-            <div class="input-group">
-              <input
-                class="input-float"
-                type="text"
-                id="TIPOEVENTO"
-                name="TIPOEVENTO"
-                placeholder="Tipo de evento:"
               />
             </div>
             <div class="input-group">
@@ -72,24 +72,24 @@
                 </div>
               </div>
             </div>
-            <div class="input-group">
-              <input
-                class="input-float"
-                type="number"
-                id="DURACION"
-                name="DURACION"
-                placeholder="Duración en lecciones:"
-              />
-            </div>
+            <div class="firstLine">
+              <div class="input-group">
+                <input
+                  class="input-float"
+                  type="number"
+                  id="DURACION"
+                  name="DURACION"
+                  placeholder="Duración en lecciones:"
+                />
 
-            <div class="input-group">
-              <input
-                class="input-float"
-                type="text"
-                id="ASISTENTES"
-                name="ASISTENTES"
-                placeholder="Nombre del asistente:"
-              />
+                <input
+                  class="input-float spaceInput"
+                  type="text"
+                  id="ASISTENTES"
+                  name="ASISTENTES"
+                  placeholder="Nombre del asistente:"
+                />
+              </div>
             </div>
 
             <div class="input-group input-group-img">

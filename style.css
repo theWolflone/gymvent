@@ -12,35 +12,61 @@ body {
 }
 
 .menu{
-  padding: 12px;
+  padding: 34px;
+  padding-left: 85px;
   background-color: #303f9f;
+  text-align: center;
+  position: relative;
 }
 
 .menu li{
   list-style: none;
   display: inline-block;
-  margin-left: 16rem;
-
+  margin: 0 120px;
 }
 
 .menu li a{
   text-decoration: none;
   color: #f2f2f2;
   font-weight: bold;
+  font-size: 20px;
+
 }
 
-.title img{
+.title{
   width: 100%;
-  height: 100%;
+  height: 100px;
+  position: relative;
 }
+
+.logo{
+  position: absolute;
+  top: -1.5vh;
+  left: 5vw;
+  width: 170px;
+  height: 120px;
+}
+
 
 .wrap {
-  width: 90%;
-  max-width: 500px;
-  padding: 40px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 46px;
+  padding-top: 28px;
   margin: auto;
   background: #fff;
   box-shadow: 0px 0px 3px grey;
+}
+
+
+
+.wrap .title h1{
+  font-size: 40px;
+}
+
+.wrap .title p{
+  font-size: 19px;
+  color: #303f9f;
 }
 
 .contenedor-formulario {
@@ -60,19 +86,31 @@ body {
   position: relative;
   margin-bottom: 32px;
 }
+.contenedor-formulario .formulario .input-group .spaceInput{
+  margin-left: 86px;
+}
+
 .contenedor-formulario .formulario .input-group input[type="text"],
 .contenedor-formulario .formulario .input-group input[type="number"],
 .contenedor-formulario .formulario .input-group input[type="password"] {
   font-family: "Roboto";
   font-size: 16px;
   color: #1f1e1e;
-  width: 100%;
   outline: none;
   padding: 14px;
   background: none;
   border: none;
   border-bottom: 2px solid #bbdefb;
   z-index: 50;
+  display: inline;
+}
+.input-float{
+  width: 45%;
+}
+.contenedor-formulario .formulario .input-group .descripcion{
+  margin-top: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 .contenedor-formulario .formulario .input-group input[type="text"]:focus,
 .contenedor-formulario .formulario .input-group input[type="text"]:active,
@@ -128,7 +166,7 @@ body {
   font-family: "Roboto";
   font-size: 16px;
   color: #1f1e1e;
-  width: 100%;
+  width: 94%;
   outline: none;
   padding-top: 40px;
   padding-left: 15px;
@@ -158,12 +196,12 @@ body {
 .contenedor-formulario .formulario .input-group .input-group-time {
   position: relative;
   display: block;
-  margin-left: 6px;
+  margin-left: 26px;
 }
 
 .contenedor-formulario .formulario .btn-submit {
   background: #303f9f;
-  border-radius: 1px;
+  border-radius: 5px;
   border: 2px solid #f2f2f2;
   color: #fff;
   cursor: pointer;
@@ -171,7 +209,7 @@ body {
   font-family: "Roboto";
   font-size: 16px;
   padding: 15px;
-  width: 100%;
+  width: 40%;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -185,7 +223,7 @@ body {
   font-family: "Roboto";
   font-size: 14px;
   color: #1f1e1e;
-  width: 60%;
+  width: 30%;
   outline: none;
   margin-top: 39px;
   padding-left: 15px;
@@ -198,7 +236,7 @@ body {
 }
 
 .contenedor-formulario .formulario .input-group .label-img {
-  width: 60%;
+  width: 30%;
   display: block;
   padding: 10px 20px;
   color: #fff;
@@ -308,7 +346,7 @@ input[type="button"]:hover {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  text-align: center;
+  text-align: left;
 }
 
 .link a {
@@ -322,5 +360,5 @@ input[type="button"]:hover {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  text-align: center;
+  text-align: left;
 }
