@@ -41,6 +41,12 @@ module.exports = function (app) {
   app.get("/calendariogymcss", function (req, res) {
     res.sendfile("calendariogym/calendario.css");
   });
+  app.get("/tabla", function (req, res) {
+    res.sendfile("tabla.html");
+  });
+  app.get("/tablejs", function (req, res) {
+    res.sendfile("table.js");
+  });
   // app.get("/usershtml", function (req, res) {
   //   res.sendfile("users/users.html");
   // });

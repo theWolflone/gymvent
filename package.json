@@ -10,7 +10,9 @@
       "dependencies": {
             "body-parser": "^1.18.3",
             "cors": "^2.8.5",
+            "datatables.net-dt": "^1.13.4",
             "express": "^3.21.2",
+            "jquery": "^3.7.0",
             "mongodb": "^5.2.0",
             "mongoose": "~5.11.19",
             "multer": "~0.1.6",
