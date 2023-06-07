@@ -25,6 +25,10 @@ module.exports = function (app) {
   app.get("/gymventlogo", function (req, res) {
     res.sendfile("assets/GymventWhite.png")
   })
+
+  app.get("/gymventlogoblue", function (req, res) {
+    res.sendfile("assets/Gymvent.png")
+  })
   
   app.get("/gimnasio", function (req, res) {
     res.sendfile("index.html");
@@ -50,11 +54,17 @@ module.exports = function (app) {
   app.get("/tablejs", function (req, res) {
     res.sendfile("table.js");
   });
-  // app.get("/usershtml", function (req, res) {
-  //   res.sendfile("users/users.html");
-  // });
+  app.get("/usershtml", function (req, res) {
+    res.sendfile("users/users.html");
+  });
   app.get("/userscss", function (req, res) {
     res.sendfile("users/style.css");
+  });
+  app.get("/home", function (req, res) {
+    res.sendfile("home.html");
+  });
+  app.get("/homecss", function (req, res) {
+    res.sendfile("home.css");
   });
   app.get("/usersfrontjs", function (req, res) {
     res.sendfile("users/frontendPersona.js");
