@@ -29,7 +29,7 @@ dbCOnnection.once("open", () => console.log("Connected to DB!"));
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cors());

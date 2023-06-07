@@ -44,6 +44,9 @@ module.exports = function (app) {
   app.get("/tabla", function (req, res) {
     res.sendfile("tabla.html");
   });
+  app.get("/tablacss", function (req, res) {
+    res.sendfile("tabla.css");
+  });
   app.get("/tablejs", function (req, res) {
     res.sendfile("table.js");
   });

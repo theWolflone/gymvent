@@ -101,7 +101,7 @@
               class="btn-submit"
               id="btn-submit"
               value="Enviar"
-              onclick="step1()"
+              onclick="Guardar()"
             />
           </div>
         </form>
@@ -158,11 +158,7 @@
       }
     }
 
-    function step1() {
-      var table = document.getElementById("table");
-      table.classList.remove("hidden");
-      Guardar();
-    }
+   
 
     // Creamos una función para guardar los datos en nuestra base de datos.
     function Guardar() {
@@ -185,37 +181,6 @@
           localStorage.setItem("listaeventos", JSON.stringify(response));
           console.log("Success!", response);
           alert("Guardado con éxito");
-          for (var elemento in response) {
-            document.getElementById("cuerpoDeLaTabla").innerHTML +=
-              "<tr><td>" +
-              response[elemento].NOMBRE +
-              "</td>" +
-              "<td>" +
-              response[elemento].DESCRIPCION +
-              "</td>" +
-              "<td>" +
-              response[elemento].TIPOEVENTO +
-              "</td>" +
-              "<td>" +
-              response[elemento].FECHA +
-              "</td>" +
-              "<td>" +
-              response[elemento].HORAINICIO +
-              "</td>" +
-              "<td>" +
-              response[elemento].DURACION +
-              "</td>" +
-              '<td><img src="' +
-              response[elemento].IMAGEN +
-              '"style="height:50px"/></td>' +
-              '</td><td> <input type="button" value="Modificar" onclick="modificarenbd(\'' +
-              response[elemento]._id +
-              "')\"/></td>" +
-              '<td> <input type="button" value="Eliminar" onclick="eliminarenbd(\'' +
-              response[elemento]._id +
-              "')\"/></td>" +
-              "</tr>";
-          }
         },
         function (error) {
           console.error("Failed!", error);

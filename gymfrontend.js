@@ -132,7 +132,7 @@ class Gimnasio {
     return new Promise(function (resolve, reject) {
       try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/api/todosloseventos");
+        xhr.open("POST", "/api/todosloseventos");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
           if (xhr.status === 200) {
