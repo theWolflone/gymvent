@@ -3,24 +3,24 @@ var controllerPersona = require("./users/controllerPersona.js");
 module.exports = function (app) {
   var PersonaW = require("./users/persona");
 
-  app.get("/gimnasio", function (req, res) {
-    //localhost:8080
-    console.log(req.query);
-    PersonaW.find(
-      { email: req.query.email, password: req.query.password },
-      function (err, persona) {
-        if (err) {
-          res.send(err);
-        } else {
-          if (persona.length > 0) {
-            res.sendfile("index.html"); //Cargar Unica de la vista
-          } else {
-            res.json("No andes Jakiando");
-          }
-        }
-      }
-    );
-  });
+  // app.get("/gimnasio", function (req, res) {
+  //   //localhost:8080
+  //   console.log(req.query);
+  //   PersonaW.find(
+  //     { email: req.query.email, password: req.query.password },
+  //     function (err, persona) {
+  //       if (err) {
+  //         res.send(err);
+  //       } else {
+  //         if (persona.length > 0) {
+  //           res.sendfile("index.html"); //Cargar Unica de la vista
+  //         } else {
+  //           res.json("No andes Jakiando");
+  //         }
+  //       }
+  //     }
+  //   );
+  // });
 
   app.get("/lovelo", function (req, res) {
     res.sendfile("assets/fonts/Lovelo-Black.otf");
@@ -34,9 +34,17 @@ module.exports = function (app) {
     res.sendfile("assets/Gymvent.png");
   });
 
-  // app.get("/gimnasio", function (req, res) {
-  //   res.sendfile("index.html");
-  // });
+  app.get("/mision", function (req, res) {
+    res.sendfile("assets/bullseye.png");
+  });
+
+  app.get("/vision", function (req, res) {
+    res.sendfile("assets/vision.png");
+  });
+
+  app.get("/gimnasio", function (req, res) {
+    res.sendfile("index.html");
+  });
   app.get("/gimnasiocss", function (req, res) {
     res.sendfile("style.css");
   });

@@ -16,7 +16,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
     />
-    <title>Login</title>
+    <title>Gymvent</title>
   </head>
   <body>
     <nav class="menu">
@@ -26,25 +26,151 @@
       <li><a href="/login">Iniciar Sesión</a></li>
     </nav>
     <div class="mainBg">
-      <div class="homePageCover parallax-layer layer1">
+      <div class="homePageCover parallaxContainer">
         <div>
           <div class="title">
             <h1>GYM<span class="ventColor">VENT</span></h1>
           </div>
           <div class="subtitle">
-            <p>Donde nace la organización, la coordinación y la cooperación</p>
+            <p id="typedText"></p>
           </div>
         </div>
         <div class="ptImage">
           <img src="/gymventlogoblue" alt="" />
         </div>
       </div>
-      <div class="websiteInfo parallax-layer layer2">
-
+      <div class="websiteInfo contentContainer">
+        <div class="aboutUs">
+          <div class="aboutTitle">
+            <h2>¿Quiénes somos?</h2>
+          </div>
+          <div class="aboutText">
+            <p>
+              Gymvent es un sistema de organización y coordinación de los
+              eventos a realizar en los gimnasios de los centros educativos.
+              Permite la creación y administración de los eventos a nivel
+              deportivo, cívico, religioso, profesional y de cualquier otra
+              índole.
+            </p>
+          </div>
+        </div>
+        <div class="goal&vision">
+          <div class="mision">
+            <div class="misionTitle">
+              <h3>Misión</h3>
+            </div>
+            <div class="misionText">
+              <p>
+                Facilitar el control y la organización de los eventos y
+                actividades que se realizan en los gimnasios de los centros
+                educativos.
+              </p>
+              <div>
+                <img src="/mision" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="vision">
+            <div class="visionTitle">
+              <h3>Visión</h3>
+            </div>
+            <div class="visionText">
+              <div>
+                <img src="/vision" alt="" />
+              </div>
+              <p>
+                Ser una herramienta de referencia para la gestión de eventos en
+                los gimnasios de los centros educativos.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="values">
+          <div class="valuesTitle">
+            <h3>Valores</h3>
+          </div>
+          <div class="valuesCards">
+            <div class="valueCard">
+              <div class="valueCardTitle">
+                <h4>Eficiencia</h4>
+              </div>
+              <div class="valueCardText">
+                <p>
+                  Compromiso a ofrecer un servicio rápido y eficiente para los
+                  usuarios.
+                </p>
+              </div>
+            </div>
+            <div class="valueCard">
+              <div class="valueCardTitle">
+                <h4>Calidad</h4>
+              </div>
+              <div class="valueCardText">
+                <p>
+                  Nos esforzamos por brindar un servicio que garantice la
+                  satisfacción de nuestros usuarios.
+                </p>
+              </div>
+            </div>
+            <div class="valueCard">
+              <div class="valueCardTitle">
+                <h4>Responsabilidad</h4>
+              </div>
+              <div class="valueCardText">
+                <p>
+                  Mantener un cumplimiento y atención de los eventos conforme a
+                  las necesidades de los mismos.
+                </p>
+              </div>
+            </div>
+            <div class="valueCard">
+              <div class="valueCardTitle">
+                <h4>Colaboración</h4>
+              </div>
+              <div class="valueCardText">
+                <p>
+                  Creemos en el trabajo en equipo y la colaboración con nuestros
+                  usuarios para una exitosa organización y gestión de eventos
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <p class="footerText">GYMVENT Copyright © 2023 Gymvent - All rights reserved || Designed By: theWolflone </p>
       </div>
     </div>
   </body>
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script src="/usersfrontjs"></script>
-  <script></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+  <script>
+    let typedText = document.getElementById("typedText");
+
+    const typewriter = new Typewriter(typedText, {
+      autoStart: true,
+      loop: true,
+      delay: 40,
+      changeDeleteSpeed: 40,
+    });
+
+    typewriter
+      .pauseFor(100)
+      .typeString(
+        'Donde nace la <span style="color: #4658ca">organización</span>'
+      )
+      .pauseFor(1000)
+      .deleteChars(15)
+      .typeString('el <span style="color: #4658ca">trabajo en equipo</span>')
+      .pauseFor(1000)
+      .deleteChars(20)
+      .typeString('la <span style="color: #4658ca">coordinación</span>')
+      .pauseFor(1000)
+      .deleteChars(12)
+      .typeString('<span style="color: #4658ca">comunicación</span>')
+      .pauseFor(1000)
+      .start();
+  </script>
 </html>
