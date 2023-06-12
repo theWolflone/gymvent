@@ -52,13 +52,12 @@ body {
 
 .btn {
   background: #f2f2f2;
+  width: 60px;
   border-radius: 10px;
-  padding: 5px;
-  margin-left: 28px;
+  margin: auto;
   border: 2px solid #f2f2f2;
   cursor: pointer;
-  cursor: pointer;
-  display: inline-block;
+  display: block;
   font-family: "Roboto";
   font-size: 14px;
   padding: 10px;
@@ -81,6 +80,15 @@ body {
 .tableSpacing input{
       border-radius: 15px;
       padding: 8px;
-      margin-left: 25%;
 }
 
+.fechaTd{
+  width: 10%;
+}
+
+.cutText{
+  white-space: nowrap;
+  overflow-x: hidden;
+  max-width: 76px;
+  letter-spacing: 0.5px;
+}

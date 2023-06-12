@@ -60,6 +60,8 @@
   <script src="/frontend"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    
+
     var eventosSolicitados = new Gimnasio();
     eventosSolicitados.Seleccionartodos().then(
         function (response) {
@@ -77,8 +79,10 @@
               "<td>" +
               response[elemento].TIPOEVENTO +
               "</td>" +
-              "<td>" +
+              "<td class='fechaTd'>" +
+              "<p class='cutText'>"+
               response[elemento].FECHA +
+              "</p>"+
               "</td>" +
               "<td>" +
               response[elemento].HORAINICIO +
@@ -106,7 +110,7 @@
           document.getElementById("tableContent").innerHTML = "";
           for (var elemento in response) {
             document.getElementById("tableContent").innerHTML +=
-              "<tr><td>" +
+            "<tr><td>" +
               response[elemento].NOMBRE +
               "</td>" +
               "<td>" +
@@ -115,7 +119,7 @@
               "<td>" +
               response[elemento].TIPOEVENTO +
               "</td>" +
-              "<td>" +
+              "<td  contenteditable='true' oninput='limitText(this, 10)' class='showFecha'>" +
               response[elemento].FECHA +
               "</td>" +
               "<td>" +
@@ -124,10 +128,8 @@
               "<td>" +
               response[elemento].DURACION +
               "</td>" +
-            //   '<td> <input type="button" class="btn" value="Modificar" onclick="modificarenbd(\'' +
-            //   response[elemento]._id +
-            //   "')\"/>" +
-              '<input type="button" class="btn" value="Eliminar" onclick="eliminarenbd(\'' +
+              
+              '<td> <input type="button" class="btn" value="Eliminar" onclick="eliminarenbd(\'' +
               response[elemento]._id +
               "')\"/></td>" +
               "</tr>";
