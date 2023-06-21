@@ -55,7 +55,7 @@ body {
 }
 
 .calendar-container {
-  width: 75%;
+  width: 90%;
   color: #6f6f6f;
   padding: 10px;
   margin: auto;
@@ -84,8 +84,8 @@ td{
   border: 1px solid #ccc;
   max-width: 20px;
   height: 100px;
-  /* padding-top: 7px;
-  padding-bottom: 7px; */
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .calendar-container h1{
